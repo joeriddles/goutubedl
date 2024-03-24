@@ -231,6 +231,8 @@ type Options struct {
 	HTTPClient         *http.Client                  // Client for download thumbnail and subtitles (nil use http.DefaultClient)
 	MergeOutputFormat  string                        // --merge-output-format
 	SortingFormat      string                        // --format-sort
+	ExtractAudio       bool                          // --extract-audio
+	AudioFormat        string                        // --audio-format
 
 	// Set to true if you don't want to use the result.Info structure after the goutubedl.New() call,
 	// so the given URL will be downloaded in a single pass in the DownloadResult.Download() call.
@@ -629,6 +631,16 @@ func (result Result) DownloadWithOptions(
 	if result.Options.SortingFormat != "" {
 		cmd.Args = append(cmd.Args,
 			"--format-sort", result.Options.SortingFormat,
+		)
+	}
+
+	if result.Options.ExtractAudio {
+		cmd.Args = append(cmd.Args, "--extract-audio")
+	}
+
+	if result.Options.AudioFormat != "" {
+		cmd.Args = append(cmd.Args,
+			"--audio-format", result.Options.AudioFormat,
 		)
 	}
 
