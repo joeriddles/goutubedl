@@ -682,6 +682,7 @@ func (result Result) DownloadWithOptions(
 			}
 			const errorPrefix = "ERROR: "
 			line := stderrLineScanner.Text()
+			debugLog.Print(line)
 			if strings.HasPrefix(line, downloadPrefix) {
 				break
 			} else if strings.HasPrefix(line, errorPrefix) {
