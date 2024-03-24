@@ -676,7 +676,10 @@ func (result Result) DownloadWithOptions(
 	go func() {
 		stderrLineScanner := bufio.NewScanner(stderrR)
 		for stderrLineScanner.Scan() {
-			const downloadPrefix = "[download]"
+			downloadPrefix := "[download]"
+			if result.Options.ExtractAudio {
+				downloadPrefix = "[ExtractAudio]"
+			}
 			const errorPrefix = "ERROR: "
 			line := stderrLineScanner.Text()
 			if strings.HasPrefix(line, downloadPrefix) {
